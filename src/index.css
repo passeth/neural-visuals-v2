@@ -1,0 +1,158 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+  background: #000000;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.control-panel {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 20px;
+  color: white;
+  font-family: monospace;
+  z-index: 1000;
+  max-width: 300px;
+}
+
+.control-panel h3 {
+  font-size: 14px;
+  margin-bottom: 15px;
+  color: #00ff88;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.control-group {
+  margin-bottom: 15px;
+}
+
+.control-group label {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 5px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.control-group select,
+.control-group input[type="range"] {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: 8px;
+  color: white;
+  font-size: 12px;
+}
+
+.control-group input[type="range"] {
+  height: 4px;
+  padding: 0;
+}
+
+.control-group button {
+  width: 100%;
+  background: rgba(0, 255, 136, 0.1);
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  border-radius: 4px;
+  padding: 10px;
+  color: #00ff88;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: monospace;
+}
+
+.control-group button:hover {
+  background: rgba(0, 255, 136, 0.2);
+  border-color: rgba(0, 255, 136, 0.5);
+}
+
+.file-upload-btn {
+  display: block;
+  width: 100%;
+  background: rgba(0, 255, 136, 0.1);
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  border-radius: 4px;
+  padding: 10px;
+  color: #00ff88;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.file-upload-btn:hover {
+  background: rgba(0, 255, 136, 0.2);
+  border-color: rgba(0, 255, 136, 0.5);
+}
+
+.audio-play-btn {
+  margin-top: 10px;
+}
+
+.audio-info {
+  margin-top: 10px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.audio-filename {
+  display: block;
+  margin-bottom: 5px;
+  color: rgba(255, 255, 255, 0.7);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.audio-error {
+  margin-top: 10px;
+  font-size: 11px;
+  color: #ff4444;
+}
+
+.dedication {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.3);
+  z-index: 1000;
+  text-align: center;
+  font-family: monospace;
+}
