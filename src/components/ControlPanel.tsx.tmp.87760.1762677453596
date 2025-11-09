@@ -10,7 +10,6 @@ interface AudioSystemProps {
   volume: number;
   setVolume: (volume: number) => void;
   loadAudioFile: (file: File) => void;
-  loadPresetAudio: (url: string, fileName: string) => void;
   togglePlayPause: () => void;
 }
 
@@ -51,15 +50,6 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
   const handleParamChange = (key: keyof VisualParams, value: number | string) => {
     setParams({ ...params, [key]: value });
   };
-
-  const presetAudioFiles = [
-    { id: 'digital-library', name: '📚 Digital Library Flow', file: 'Digital_Library_Flow_2025-11-08T065537.wav' },
-    { id: 'cortex-focus', name: '🧠 Effective Cortex Focus', file: 'Effective Cortex Focus.mp3' },
-    { id: 'lubelly', name: '🎵 Lubelly', file: 'lubelly_ rec0FBbVb3apProR6.mp3' },
-    { id: 'night-comfort', name: '🌙 Night Comfort Delta Sleep', file: 'Night_Comfort_Deep_Delta_Binaural_Sleep_2025-11-08T070127.wav' },
-    { id: 'primordial-cradle', name: '🌊 Primordial Cradle', file: 'Primordial Cradle.mp3' },
-    { id: 'return-origin', name: '✨ Return to Origin', file: 'Return to Origin.mp3' },
-  ];
 
   const oceanColorPresets = [
     { id: 'midnight', name: '🌙 Midnight Ocean' },
@@ -198,26 +188,6 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
       </div>
 
       <h3>🎵 Audio</h3>
-
-      <div className="control-group">
-        <label>Preset Sounds</label>
-        <select
-          onChange={(e) => {
-            const selected = presetAudioFiles.find(p => p.id === e.target.value);
-            if (selected) {
-              audioSystem.loadPresetAudio(`/audio/${selected.file}`, selected.name);
-            }
-          }}
-          defaultValue=""
-        >
-          <option value="" disabled>Select a preset...</option>
-          {presetAudioFiles.map(preset => (
-            <option key={preset.id} value={preset.id}>
-              {preset.name}
-            </option>
-          ))}
-        </select>
-      </div>
 
       <div className="control-group">
         <label className="file-upload-btn">

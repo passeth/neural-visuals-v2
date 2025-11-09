@@ -55,11 +55,7 @@ function App() {
 
   const audioSystem = useAudioSystem();
   const [audioData, setAudioData] = useState<AudioData | null>(null);
-  const videoRecorder = useVideoRecorder({
-    audioElementRef: audioSystem.audioElementRef,
-    audioContextRef: audioSystem.audioContextRef,
-    sourceNodeRef: audioSystem.sourceNodeRef
-  });
+  const videoRecorder = useVideoRecorder(audioSystem.audioElementRef);
 
   // Update audio data continuously
   useEffect(() => {
@@ -165,7 +161,6 @@ function App() {
           volume: audioSystem.volume,
           setVolume: audioSystem.setVolume,
           loadAudioFile: audioSystem.loadAudioFile,
-          loadPresetAudio: audioSystem.loadPresetAudio,
           togglePlayPause: audioSystem.togglePlayPause,
         }}
         videoRecorder={{

@@ -15,43 +15,6 @@ export const useAudioSystem = () => {
   const sourceNodeRef = useRef<MediaElementAudioSourceNode | null>(null);
   const dataArrayRef = useRef<Uint8Array | null>(null);
 
-  const setupAudio = useCallback((audio: HTMLAudioElement, fileName: string) => {
-    audio.volume = volume / 100;
-    audioElementRef.current = audio;
-    setAudioFile(fileName);
-    setAudioError('');
-
-    audio.addEventListener('loadedmetadata', () => {
-      setDuration(audio.duration);
-    });
-
-    audio.addEventListener('timeupdate', () => {
-      setCurrentTime(audio.currentTime);
-    });
-
-    audio.addEventListener('ended', () => {
-      setIsPlaying(false);
-    });
-
-    // Setup Web Audio API
-    if (!audioContextRef.current) {
-      audioContextRef.current = new AudioContext();
-    }
-
-    if (!sourceNodeRef.current && audioContextRef.current) {
-      const source = audioContextRef.current.createMediaElementSource(audio);
-      const analyser = audioContextRef.current.createAnalyser();
-      analyser.fftSize = 512;
-
-      source.connect(analyser);
-      analyser.connect(audioContextRef.current.destination);
-
-      analyserRef.current = analyser;
-      sourceNodeRef.current = source;
-      dataArrayRef.current = new Uint8Array(analyser.frequencyBinCount);
-    }
-  }, [volume]);
-
   const loadAudioFile = useCallback((file: File) => {
     try {
       const url = URL.createObjectURL(file);
@@ -62,29 +25,46 @@ export const useAudioSystem = () => {
       }
 
       const audio = new Audio(url);
-      setupAudio(audio, file.name);
+      audio.volume = volume / 100;
+      audioElementRef.current = audio;
+      setAudioFile(file.name);
+      setAudioError('');
+
+      audio.addEventListener('loadedmetadata', () => {
+        setDuration(audio.duration);
+      });
+
+      audio.addEventListener('timeupdate', () => {
+        setCurrentTime(audio.currentTime);
+      });
+
+      audio.addEventListener('ended', () => {
+        setIsPlaying(false);
+      });
+
+      // Setup Web Audio API
+      if (!audioContextRef.current) {
+        audioContextRef.current = new AudioContext();
+      }
+
+      if (!sourceNodeRef.current && audioContextRef.current) {
+        const source = audioContextRef.current.createMediaElementSource(audio);
+        const analyser = audioContextRef.current.createAnalyser();
+        analyser.fftSize = 512;
+
+        source.connect(analyser);
+        analyser.connect(audioContextRef.current.destination);
+
+        analyserRef.current = analyser;
+        sourceNodeRef.current = source;
+        dataArrayRef.current = new Uint8Array(analyser.frequencyBinCount);
+      }
 
     } catch (error) {
       setAudioError('Failed to load audio file');
       console.error('Audio loading error:', error);
     }
-  }, [setupAudio]);
-
-  const loadPresetAudio = useCallback((url: string, fileName: string) => {
-    try {
-      if (audioElementRef.current) {
-        audioElementRef.current.pause();
-        audioElementRef.current = null;
-      }
-
-      const audio = new Audio(url);
-      setupAudio(audio, fileName);
-
-    } catch (error) {
-      setAudioError('Failed to load preset audio');
-      console.error('Preset audio loading error:', error);
-    }
-  }, [setupAudio]);
+  }, [volume]);
 
   const togglePlayPause = useCallback(() => {
     if (!audioElementRef.current) return;
@@ -132,7 +112,6 @@ export const useAudioSystem = () => {
     sourceNodeRef,
     setVolume,
     loadAudioFile,
-    loadPresetAudio,
     togglePlayPause,
     getAudioData,
   };

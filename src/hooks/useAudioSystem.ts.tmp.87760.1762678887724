@@ -132,7 +132,6 @@ export const useAudioSystem = () => {
     sourceNodeRef,
     setVolume,
     loadAudioFile,
-    loadPresetAudio,
     togglePlayPause,
     getAudioData,
   };

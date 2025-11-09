@@ -200,26 +200,6 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
       <h3>🎵 Audio</h3>
 
       <div className="control-group">
-        <label>Preset Sounds</label>
-        <select
-          onChange={(e) => {
-            const selected = presetAudioFiles.find(p => p.id === e.target.value);
-            if (selected) {
-              audioSystem.loadPresetAudio(`/audio/${selected.file}`, selected.name);
-            }
-          }}
-          defaultValue=""
-        >
-          <option value="" disabled>Select a preset...</option>
-          {presetAudioFiles.map(preset => (
-            <option key={preset.id} value={preset.id}>
-              {preset.name}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div className="control-group">
         <label className="file-upload-btn">
           📁 Upload Audio
           <input

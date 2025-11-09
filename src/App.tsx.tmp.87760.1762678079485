@@ -165,7 +165,6 @@ function App() {
           volume: audioSystem.volume,
           setVolume: audioSystem.setVolume,
           loadAudioFile: audioSystem.loadAudioFile,
-          loadPresetAudio: audioSystem.loadPresetAudio,
           togglePlayPause: audioSystem.togglePlayPause,
         }}
         videoRecorder={{
