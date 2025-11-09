@@ -103,7 +103,7 @@ export const useAudioSystem = () => {
       return null;
     }
 
-    analyserRef.current.getByteFrequencyData(dataArrayRef.current as Uint8Array);
+    analyserRef.current.getByteFrequencyData(dataArrayRef.current as Uint8Array<ArrayBuffer>);
     const data = dataArrayRef.current;
 
     // Bass: 0-50, Mid: 50-150, High: 150-255
