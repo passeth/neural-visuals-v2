@@ -1,12 +1,22 @@
 # Neural Visuals v2 🌊
 
-바이노럴 비트 시각화 시스템 - 음악과 함께 자동으로 영상을 생성하는 완전 자동화 플랫폼
+바이노럴 비트 시각화 시스템 - 브라우저에서 음악과 함께 3D 비주얼을 실시간 재생하고 영상으로 녹화하는 웹 앱
+
+**Live Demo**: [https://neural-visuals-v2.vercel.app](https://neural-visuals-v2.vercel.app) (배포 후 업데이트 예정)
 
 ## 🎯 주요 기능
 
-- **6가지 테마**: Mental Focus, Brain Boost, Zen Focus, Creative Flow, Moonlight, Ocean Waves
+### 웹 앱 기능 (브라우저)
+- **6가지 3D 테마**: Mental Focus, Brain Boost, Zen Focus, Creative Flow, Moonlight, Ocean Waves
 - **컬러 프리셋**: 각 테마별 4-5가지 색상 조합
 - **오디오 반응형**: 실시간 음악 분석으로 비주얼 변화
+- **오디오 플레이어**: 프리셋 음악 또는 사용자 업로드
+- **영상 녹화**:
+  - 자동 생성: 음악 전체 길이 자동 녹화
+  - 수동 녹화: 원하는 구간만 녹화
+  - WebM 포맷 (VP9 코덱) 다운로드
+
+### 자동화 시스템 (선택)
 - **100개 트랙**: 완성된 CSV 데이터베이스
 - **n8n 자동화**: 음악 → 영상 → YouTube 완전 자동 파이프라인
 
@@ -21,37 +31,59 @@ npm run dev
 
 http://localhost:5173 에서 확인
 
-### Vercel 배포 (프론트엔드)
+### Vercel 배포 (웹 앱)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/your-username/neural-visuals-v2)
+GitHub 저장소: [https://github.com/passeth/neural-visuals-v2](https://github.com/passeth/neural-visuals-v2)
 
-1. GitHub에서 "New repository" 생성
-2. 이 코드 푸시
-3. Vercel에서 "Import Project" → GitHub 연결
-4. 자동 빌드 & 배포
+1. [Vercel](https://vercel.com) 접속 후 로그인
+2. "Add New" → "Project" 클릭
+3. GitHub 저장소 `passeth/neural-visuals-v2` 선택
+4. 빌드 설정 확인:
+   - Build Command: `npm run build`
+   - Output Directory: `dist`
+   - Install Command: `npm install`
+5. "Deploy" 클릭
+6. 배포 완료 후 제공되는 URL 확인 (예: `https://neural-visuals-v2.vercel.app`)
 
-### Railway 배포 (영상 생성 서버)
+**중요**: `public/audio/` 폴더에 MP3 파일이 포함되어야 프리셋 음악이 작동합니다.
 
-영상 자동 생성을 위해서는 Docker 서버가 필요합니다:
+### Railway 배포 (영상 생성 서버 - 선택)
+
+자동 배치 영상 생성을 원한다면 Docker 서버를 배포할 수 있습니다:
 
 1. [Railway.app](https://railway.app) 가입
 2. "New Project" → "Deploy from GitHub"
 3. 이 저장소 선택
 4. 자동으로 Dockerfile 감지하고 배포
 
+**참고**: 웹 앱만 사용한다면 Railway 배포는 필요 없습니다. 브라우저에서 직접 녹화 가능합니다.
+
 ## 📁 프로젝트 구조
 
 ```
 10-neural-visuals-v2/
-├── src/                    # React + Three.js 앱
-│   ├── themes/            # 6가지 비주얼 테마
-│   ├── components/        # UI 컴포넌트
-│   └── hooks/            # 오디오 시스템
-├── generate_video.js      # 영상 생성 스크립트
-├── server.js              # REST API 서버
-├── Dockerfile            # Docker 컨테이너
-├── neural-music-100-tracks-complete.csv  # 트랙 데이터
-└── 가이드 문서들
+├── src/
+│   ├── themes/               # 6가지 3D 비주얼 테마
+│   │   ├── MentalFocus.tsx   # ⚡ Mental Focus
+│   │   ├── BrainBoost.tsx    # 🚀 Brain Boost
+│   │   ├── ZenFocus.tsx      # 🧘 Zen Focus
+│   │   ├── CreativeFlow.tsx  # 🎨 Creative Flow
+│   │   ├── MoonlightParticles.tsx  # 🌙 Moonlight
+│   │   └── OceanWaves.tsx    # 🌊 Ocean Waves
+│   ├── components/
+│   │   └── ControlPanel.tsx  # 오디오/비디오 컨트롤
+│   ├── hooks/
+│   │   ├── useAudioSystem.ts      # Web Audio API 관리
+│   │   └── useVideoRecorder.ts    # MediaRecorder API
+│   ├── types.ts              # TypeScript 타입 정의
+│   ├── App.tsx               # 메인 앱
+│   └── index.css             # 스타일
+├── public/
+│   └── audio/               # 프리셋 MP3 파일들
+├── generate_video.js        # 영상 생성 스크립트 (서버용)
+├── server.js                # REST API 서버 (서버용)
+├── Dockerfile               # Docker 컨테이너 (서버용)
+└── neural-music-100-tracks-complete.csv  # 트랙 데이터
 ```
 
 ## 📚 문서
@@ -92,12 +124,18 @@ http://localhost:5173 에서 확인
 
 ## 🛠️ 기술 스택
 
-- **Frontend**: React + TypeScript + Vite
-- **3D Graphics**: Three.js + React Three Fiber
-- **Audio**: Web Audio API
-- **Video Generation**: Puppeteer + FFmpeg
+### 웹 앱 (브라우저)
+- **Frontend**: React 18 + TypeScript + Vite
+- **3D Graphics**: Three.js + React Three Fiber + @react-three/drei
+- **Audio**: Web Audio API (AnalyserNode, AudioContext)
+- **Video Recording**: MediaRecorder API (WebM/VP9)
+- **Deployment**: Vercel
+
+### 자동화 시스템 (선택)
+- **Video Generation**: Puppeteer + FFmpeg (Node.js)
 - **Automation**: n8n
-- **Deployment**: Vercel (frontend) + Railway (backend)
+- **Backend**: Express.js REST API
+- **Deployment**: Railway (Docker)
 
 ## 📊 API
 
