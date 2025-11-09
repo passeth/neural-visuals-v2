@@ -21,6 +21,7 @@ Thumbs.db
 output/
 audio/
 temp/
+thumbnails/
 
 # IDE
 .vscode/
