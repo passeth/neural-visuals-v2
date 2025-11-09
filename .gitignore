@@ -19,15 +19,20 @@ Thumbs.db
 
 # Generated files
 output/
-audio/
 temp/
 thumbnails/
 
 # Sound folder (large audio files)
 sound/
 
+# Large WAV files in public/audio
+public/audio/*.wav
+
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
+
+# Temporary files
+*.tmp.*
