@@ -153,7 +153,7 @@ export const useVideoRecorder = ({ audioElementRef, audioContextRef, sourceNodeR
   }, []);
 
   // Auto-generate video from audio file
-  const autoGenerateVideo = useCallback(async (duration: number) => {
+  const autoGenerateVideo = useCallback(async (_duration: number) => {
     try {
       setError('');
       setRecordedBlob(null);

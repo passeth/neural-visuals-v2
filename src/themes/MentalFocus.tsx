@@ -70,7 +70,7 @@ export const MentalFocus: React.FC<MentalFocusProps> = ({ audioData, params }) =
       // Angular plane orientation (sharp cuts)
       const angleX = (Math.random() - 0.5) * Math.PI;
       const angleY = (Math.random() - 0.5) * Math.PI;
-      const angleZ = (Math.random() - 0.5) * Math.PI;
+      // const angleZ = (Math.random() - 0.5) * Math.PI; // Reserved for future use
 
       // Plane center position
       const centerX = (Math.random() - 0.5) * 40;
